@@ -14,7 +14,7 @@
 5. If the process does not have any dependency, add a newline (without space)  
 
 # Running the program 
- NOTE: The following contains the commands to run in **Ubuntu**
+ NOTE: The program is developed in **Ubuntu** OS
 ## Requirements
 1. Docker & docker-compose
 ## Steps
@@ -25,7 +25,7 @@ The below commands are to be executed in the **root directory of the project**
 4. Enter initiator process number in terminal (values from 0 to n-1)  
 5. Wait for 10 seconds - if deadlock exists, "DEADLOCK DETECTED" will be shown
 6. Ctrl-C to exit  
-7. Process dependency can be modified in `data/model.txt`, Repeat from step 2 if input is changed.  
+7. Process dependency can be modified in `data/model.txt`, **Repeat from step 2** if input is changed.  
 
 
 
