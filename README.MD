@@ -29,6 +29,8 @@ The below commands are to be executed in the **root directory of the project**
 
 
 
+# Screenshot
 
+![image](https://user-images.githubusercontent.com/26188281/99151465-6d589e80-26c1-11eb-959c-adfcd8a27fbe.png)
 
 
