@@ -11,38 +11,24 @@
 2. Each line defines a process. Processes are numbered from 0 to n-1  
 3. To represent dependency of process 0 on process 4, enter '4' in line 1 of model.txt  
 4. To represent dependency of process 2 on process 1 and 4, enter '1 4' on line 3 of model.txt  
-5. If the process does not have any dependency, add a newline (without blank space)  
+5. If the process does not have any dependency, add a newline (without space)  
 
-# Running the program - method 1
+# Running the program 
  NOTE: The following contains the commands to run in **Ubuntu**
 ## Requirements
 1. Docker & docker-compose
-2. Python
 ## Steps
-The below commands are to be executed in the root directory of the project
-1. To start kafka and zookeeper: Run `docker-compose up`  
-2. Create virtual environment: `python -m venv venv`  
-3. Activate virtual environment: `source venv/bin/activate`  
-4. Install requirements: `pip install -r requirements.txt`   
-5. Process dependency can be modified in `data/model.txt`  
-6. Run the program:  `python run.py`  
-7. Enter initiator process number in terminal (values from 0 to n-1)  
-8. Ctrl-C to exit  
+The below commands are to be executed in the **root directory of the project**
+1. To start kafka and zookeeper: Run `docker-compose up`. Keep the terminal open.  
+2. To build the docker image of python program run `build-docker.sh` 
+3. To execute the program, run `docker run -it --network=host aditya-deadlock-detection`     
+4. Enter initiator process number in terminal (values from 0 to n-1)  
+5. Wait for 10 seconds - if deadlock exists, "DEADLOCK DETECTED" will be shown
+6. Ctrl-C to exit  
+7. Process dependency can be modified in `data/model.txt`, Repeat from step 2 if input is changed.  
 
-# Running the program - method 2
- NOTE: The following contains the commands to run in **Ubuntu**
-## Requirements
-1. Kafka & Zookeeper
-2. Python
-## Steps
-The below commands are to be executed in the root directory of the project
-1. Create virtual environment: `python -m venv venv`  
-2. Activate virtual environment: `source venv/bin/activate`  
-3. Install requirements: `pip install -r requirements.txt`  
-4. Change host in module/variables.py. Variable name: `kafka_broker`  
-5. Process dependency can be modified in `data/model.txt`  
-6. Run the program:  `python run.py`  
-7. Enter initiator process number in terminal (values from 0 to n-1)  
+
+
 
 
 

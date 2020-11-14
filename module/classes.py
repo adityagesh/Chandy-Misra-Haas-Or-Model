@@ -14,7 +14,6 @@ class Process:
         self.wait = [False] * process_count
         self.create_dependents(dependents=dependents, process_count=process_count)
         self.consumer = None
-        self.producer = None
         self.engaging_query = None
 
     def create_dependents(self, dependents: str, process_count):
@@ -29,24 +28,17 @@ class Process:
                 else:
                     self.dependent[int(i)] = 1
 
-    def initiate_deadlock_detection(self):
-        # send query(i, i, j) to all processes Pj in the dependent set DSi
-        # numi(i) = |DSi|
-        # waiti(i) = true
-        pass
-
     def __str__(self):
         return "Process: {} | dependent: {} | num: {} | wait {}".format(self.p_no, self.dependent, self.num, self.wait)
 
     def init_kafka(self):
-        self.producer = KafkaProducer(bootstrap_servers=kafka_broker,
-                                      value_serializer=lambda x:
-                                      dumps(x).encode('utf-8'))
         self.consumer = KafkaConsumer(str(self.p_no),
                                       group_id=str(self.p_no),
                                       bootstrap_servers=kafka_broker,
-                                      auto_offset_reset='latest',
-                                      enable_auto_commit=False,
+                                      auto_offset_reset='earliest',
+                                      enable_auto_commit=True,
+                                      # auto_commit_interval_ms=500,
+                                      # max_poll_interval_ms=500,
                                       value_deserializer=lambda x: loads(x.decode('utf-8')))
 
 

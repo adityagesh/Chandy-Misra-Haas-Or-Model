@@ -7,11 +7,12 @@ from variables import kafka_broker
 
 
 def send_message(process, topic, message):
-    print("Send message {} by {} to process {}".format(message, process.p_no, topic))
+    print("Process {} -> Process {} | Send message {}".format(process.p_no, topic, message))
     producer = KafkaProducer(bootstrap_servers=kafka_broker,
                              value_serializer=lambda x:
                              dumps(x).encode('utf-8'))
     producer.send(str(topic), value=message)
+    producer.close()
     # if producer is None:
     #     process.producer.send(str(topic), value=message)
     # else:

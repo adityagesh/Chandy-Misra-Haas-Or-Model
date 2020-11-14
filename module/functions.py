@@ -42,8 +42,13 @@ def check_if_blocked_process(process):
 
 
 def init_threads(process: Process):
-    process.init_kafka()
-    receive_message(process, check_if_blocked_process)
+    try:
+        process.init_kafka()
+        receive_message(process, check_if_blocked_process)
+    except KeyboardInterrupt:
+        process.consumer.close()
+        # print("Exiting Program")
+        exit(0)
 
 
 # def create_kafka_producer():
