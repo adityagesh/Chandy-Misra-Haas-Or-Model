@@ -1,4 +1,4 @@
-from module.variables import data_dir, process_graph_file
+from variables import data_dir, process_graph_file
 from module.classes import Process, Message
 from module.messaging import receive_message
 

@@ -1,5 +1,6 @@
 from kafka import KafkaConsumer, KafkaProducer
 from json import dumps, loads
+from variables import kafka_broker
 
 
 class Process:
@@ -11,18 +12,22 @@ class Process:
         self.num = [0] * process_count
         # wait[i] denotes process is blocked since the last engaging query received from Pi
         self.wait = [False] * process_count
-        self.create_dependents(dependents=dependents)
+        self.create_dependents(dependents=dependents, process_count=process_count)
         self.consumer = None
         self.producer = None
-        self.engaging_query = True
+        self.engaging_query = None
 
-    def create_dependents(self, dependents: str):
+    def create_dependents(self, dependents: str, process_count):
         if len(dependents) == 0:
             return
         else:
             dependents = dependents.replace(" ", "")
             for i in dependents:
-                self.dependent[int(i)] = 1
+                if int(i) >= process_count:
+                    print("Incorrect dependency number in model.txt")
+                    exit(0)
+                else:
+                    self.dependent[int(i)] = 1
 
     def initiate_deadlock_detection(self):
         # send query(i, i, j) to all processes Pj in the dependent set DSi
@@ -34,14 +39,14 @@ class Process:
         return "Process: {} | dependent: {} | num: {} | wait {}".format(self.p_no, self.dependent, self.num, self.wait)
 
     def init_kafka(self):
-        self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
+        self.producer = KafkaProducer(bootstrap_servers=kafka_broker,
                                       value_serializer=lambda x:
                                       dumps(x).encode('utf-8'))
         self.consumer = KafkaConsumer(str(self.p_no),
                                       group_id=str(self.p_no),
-                                      bootstrap_servers=['localhost:9092'],
-                                      auto_offset_reset='earliest',
-                                      enable_auto_commit=True,
+                                      bootstrap_servers=kafka_broker,
+                                      auto_offset_reset='latest',
+                                      enable_auto_commit=False,
                                       value_deserializer=lambda x: loads(x.decode('utf-8')))
 
 
@@ -52,8 +57,7 @@ class Message:
 
     def create_message(self, init, src, dst):
         message = {"type": self.message_type}
-        if self.message_type == "query":
-            message.update({"data": (init, src, dst)})
+        message.update({"data": (init, src, dst)})
         return message
 
     def get_value(self):

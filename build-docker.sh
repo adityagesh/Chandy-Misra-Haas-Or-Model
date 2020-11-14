@@ -1,0 +1,1 @@
+docker build -t aditya-deadlock-detection .
