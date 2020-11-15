@@ -19,13 +19,14 @@
 1. Docker & docker-compose
 ## Steps
 The below commands are to be executed in the **root directory of the project**
-1. To start kafka and zookeeper: Run `docker-compose up`. Keep the terminal open.  
+1. To start kafka and zookeeper: Run `docker-compose up`. Wait for kafka to start and keep the terminal open.  
 2. To build the docker image of python program run `build-docker.sh` 
 3. To execute the program, run `docker run -it --network=host aditya-deadlock-detection`     
 4. Enter initiator process number in terminal   
 5. Wait for 10 seconds - if deadlock exists, "DEADLOCK DETECTED" will be shown
 6. Ctrl-C to exit  
 7. Process dependency can be modified in `data/model.txt`, **Repeat from step 2** if changed.  
+8. Close the terminal running kafka and zookeeper (step 1)  
 
 # Running the program - method 2
  NOTE: The following contains the commands to run in **Ubuntu**
@@ -47,7 +48,10 @@ The below commands are to be executed in the root directory of the project
  
 
 # Screenshot
+1. Input
+![image](https://user-images.githubusercontent.com/26188281/99181434-937b4e80-2754-11eb-8d9b-8cb1f15b93a4.png)
 
+2. Output
 ![image](https://user-images.githubusercontent.com/26188281/99151465-6d589e80-26c1-11eb-959c-adfcd8a27fbe.png)
 
 
