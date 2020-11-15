@@ -31,11 +31,13 @@ def receive_message(process, check_if_blocked_process):
             elif message.value['type'] == "reply":
                 receive_reply(process, message.value)
         else:
-            print("Process {} | Ignoring message: Reason: Process not blocked ".format(process.p_no))
+            print("Process {} | Ignoring message: Process not blocked ".format(process.p_no))
 
 
 def send_query(process, init):
     dependent = process.dependent
+    if sum(dependent) == 0:
+        print("Process {} | Cannot send query: Process does not have dependent ".format(process.p_no))
     for index, value in enumerate(dependent, 0):
         # check if process in dependent on i
         if value == 1:
