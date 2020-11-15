@@ -13,7 +13,7 @@
 4. To represent dependency of process 2 on process 1 and 4, enter '1 4' on line 3 of model.txt  
 5. If the process does not have any dependency, add a newline (without space)  
 
-# Running the program 
+# Running the program - method 1 [RECOMMENDED]
  NOTE: The program is developed in **Ubuntu** OS
 ## Requirements
 1. Docker & docker-compose
@@ -25,9 +25,26 @@ The below commands are to be executed in the **root directory of the project**
 4. Enter initiator process number in terminal   
 5. Wait for 10 seconds - if deadlock exists, "DEADLOCK DETECTED" will be shown
 6. Ctrl-C to exit  
-7. Process dependency can be modified in `data/model.txt`, **Repeat from step 2** if input is changed.  
+7. Process dependency can be modified in `data/model.txt`, **Repeat from step 2** if changed.  
 
-
+# Running the program - method 2
+ NOTE: The following contains the commands to run in **Ubuntu**
+## Requirements
+1. Python
+2. Kafka & Zookeeper
+## Steps
+The below commands are to be executed in the root directory of the project
+1. Create virtual environment: `python -m venv venv`  
+2. Activate virtual environment: `source venv/bin/activate`  
+3. Install requirements: `pip install -r requirements.txt`  
+4. Change host in variables.py. Variable name: `kafka_broker` 
+5. Run the program:  `python run.py` 
+6. Enter initiator process number in terminal   
+7. Wait for 10 seconds - if deadlock exists, "DEADLOCK DETECTED" will be shown
+8. Ctrl-C to exit  
+9. Process dependency can be modified in `data/model.txt` 
+10. Repeat from step 5, if process dependency is changed
+ 
 
 # Screenshot
 
